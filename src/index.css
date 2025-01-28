@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  font-family: "Manrope", serif;
+}
+
+:root {
+  --text-black: #3b3c51;
+  --text-blue: #1b48da;
+  --border-gray: #f6f6f9;
+  --button-bg-blue: #1b48da;
+  --text-white: #ffffff;
+}

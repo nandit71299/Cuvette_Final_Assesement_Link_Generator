@@ -1,0 +1,133 @@
+.mainContainer {
+  display: flex;
+  width: 100vw;
+  position: relative;
+}
+
+.flexColumnContainer {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 200px);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 200px;
+}
+
+.sidebarMenu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  margin-top: 50px;
+}
+
+.menuItem {
+  padding: 20px 10px;
+  color: var(--text-black);
+  text-decoration: none;
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+  align-items: center;
+}
+
+.activeMenuItem {
+  border-radius: 10px;
+  padding: 20px 10px;
+  background-color: #f3f7fd;
+  color: var(--text-blue);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px;
+  width: calc(96.7%);
+  border-bottom: 1px solid var(--border-gray);
+  position: relative;
+}
+
+.welcomeMessageContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.welcomeMessage {
+  display: flex;
+  flex-direction: column;
+}
+
+.welcomeMessage > p {
+  margin: 0;
+}
+
+.greeting {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.date {
+  font-size: 12px;
+}
+
+.createNewIcon {
+  background-color: #1b48da;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--text-white);
+}
+
+.headerRightContent {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.searchInput {
+  height: 100%;
+
+  border: 1px solid var(--border-gray);
+  border-radius: 6px;
+  padding: 15px;
+}
+
+.userInitialContainer > button {
+  background-color: #fde48a;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 10px 13px;
+  border-radius: 50%;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.logoutOptionContainer {
+  position: absolute;
+  top: 70px;
+  right: 30px;
+  background-color: #ffffff;
+  border: 1px solid var(--border-gray);
+  padding: 10px 20px;
+  border-radius: 4px;
+}
+
+.logoutOptionContainer > button {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  color: #878ba9;
+  font-size: 14px;
+  cursor: pointer;
+}

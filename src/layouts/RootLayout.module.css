@@ -1,0 +1,55 @@
+.mainContainer {
+  display: flex;
+}
+
+.flexColumnContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 200px;
+}
+
+.sidebarMenu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  margin-top: 50px;
+}
+
+.menuItem {
+  padding: 20px 10px;
+  color: var(--text-black);
+  text-decoration: none;
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+  align-items: center;
+}
+
+.activeMenuItem {
+  border-radius: 10px;
+  padding: 20px 10px;
+  background-color: #f3f7fd;
+  color: var(--text-blue);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.activeIcon {
+  filter: invert(24%) sepia(82%) saturate(4498%) hue-rotate(226deg)
+    brightness(86%) contrast(100%);
+}
+
+.inActiveIcon {
+  filter: invert(21%) sepia(10%) saturate(1391%) hue-rotate(199deg)
+    brightness(95%) contrast(89%);
+}
