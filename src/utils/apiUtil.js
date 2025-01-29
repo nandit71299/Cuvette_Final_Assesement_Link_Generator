@@ -156,13 +156,18 @@ export const updateLink = async (formData, id) => {
 
 export const redirectToLink = async (linkId) => {
   try {
-    const response = await apiClient.get(`/links/${linkId}`);
+    const response = await apiClient.get(`/links/${linkId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*",
+      },
+    });
     return response.data;
   } catch (error) {
-    console.error("Error during redirection:", error);
+    console.error("Error during redirection:", error.response.data.message);
     return {
       success: false,
-      error: error.response.data.message || "An unknown error occurred",
+      error: error?.response?.data?.message,
     };
   }
 };
