@@ -1,0 +1,143 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: #fff;
+  border-radius: 8px;
+  width: 400px;
+  position: relative;
+}
+
+.modalTitle {
+  font-size: 16px;
+  font-weight: normal;
+  padding: 20px;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #3b3c51;
+  color: white;
+  border-radius: 8px 8px 0px 0px;
+  padding: 0px 10px;
+}
+
+.modalHeader > h2 {
+  font-size: 18px;
+}
+
+.closeButton {
+  cursor: pointer;
+  color: white;
+  border: none;
+  background-color: transparent;
+  font-size: 24px;
+}
+
+.modalForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.toggleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toggleButton {
+  width: 30px;
+  height: 16px;
+  background-color: #ccc;
+  border-radius: 15px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.toggleButton.active {
+  background-color: #4a70d1; /* Green color when active */
+}
+
+.toggleIndicator {
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  transition: transform 0.3s ease;
+}
+
+.toggleButton.active .toggleIndicator {
+  transform: translateX(15px); /* Move the indicator to the right when active */
+}
+
+.linkFormLabel {
+  font-size: 16px;
+}
+
+.linkFormInputs {
+  padding: 10px 10px;
+  border: 1px solid var(--border-gray);
+  border-radius: 6px;
+  margin-top: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 10px;
+  background-color: #3b3c5110;
+}
+
+.clearBtn {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.submitBtn {
+  background-color: var(--button-bg-blue);
+  border-radius: 6px;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.formContainer {
+  width: 100%;
+}
+
+.formElements {
+  padding: 20px;
+}
+
+.formElement {
+  margin-bottom: 10px;
+}
+
+.linkRemarks {
+  font-family: "Manrope", serif;
+}
+
+.required {
+  color: red;
+}

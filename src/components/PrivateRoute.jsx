@@ -3,6 +3,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { verifyUserApi } from "../utils/apiUtil";
 import { login, logout } from "../redux/user";
+import Loader from "./Loader";
 
 const PrivateRoute = ({ children }) => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const PrivateRoute = ({ children }) => {
     verifyToken();
   });
 
-  if (loading) return <p>loading...</p>;
+  if (loading) return <Loader />;
   else if (!loading) return children;
 };
 

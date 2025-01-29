@@ -5,13 +5,13 @@ import {
   useNavigate,
 } from "react-router-dom";
 import SignUpLogin, { action as signUpLoginAction } from "./pages/SignUpLogin";
-import Dashboard from "./pages/Dashboard";
+import Dashboard, { loader as dashboardLoader } from "./pages/Dashboard";
 import RootLayout from "./layouts/RootLayout";
-import { verifyUserApi } from "./utils/apiUtil";
-import { useDispatch } from "react-redux";
-import { login, logout } from "./redux/user";
 import PrivateRoute from "./components/PrivateRoute";
 import DashboardLayout from "./layouts/DashboardLayout";
+import Links, { loader as linksPageLoader } from "./pages/Links";
+import Loader from "./components/Loader";
+import Redirector from "./pages/Redirector";
 
 const router = createBrowserRouter([
   {
@@ -23,10 +23,15 @@ const router = createBrowserRouter([
         element: <SignUpLogin />,
         action: signUpLoginAction,
       },
+      {
+        path: "/:linkId",
+        element: <Redirector />,
+      },
     ],
   },
   {
     path: "/dashboard",
+    hydrateFallbackElement: <Loader />,
     element: (
       <PrivateRoute>
         <DashboardLayout />,
@@ -36,10 +41,12 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Dashboard />,
+        loader: dashboardLoader,
       },
       {
         path: "links",
-        element: <h1>Links Page</h1>,
+        element: <Links />,
+        loader: linksPageLoader,
       },
       {
         path: "analytics",

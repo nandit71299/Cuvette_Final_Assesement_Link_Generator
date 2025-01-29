@@ -73,3 +73,96 @@ export const verifyUserApi = async () => {
     };
   }
 };
+
+export const getDashboard = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await apiClient.get("/dashboard", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error during dashboard data fetching:", error);
+    return {
+      success: false,
+      error: error.response.data.message || "An unknown error occurred",
+    };
+  }
+};
+
+export const getAllLinks = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await apiClient.get("/links/getAll", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error during links data fetching:", error);
+    return {
+      success: false,
+      error: error.response.data.message || "An unknown error occurred",
+    };
+  }
+};
+
+export const deleteLink = async (id) => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await apiClient.delete(`/links/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error during links data fetching:", error);
+    return {
+      success: false,
+      error: error.response.data.message || "An unknown error occurred",
+    };
+  }
+};
+
+export const createLink = async (formData) => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await apiClient.post("/links", formData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error during links data fetching:", error);
+    return {
+      success: false,
+      error: error.response.data.message || "An unknown error occurred",
+    };
+  }
+};
+
+export const updateLink = async (formData, id) => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await apiClient.put(`/links/${id}`, formData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error during links data fetching:", error);
+    return {
+      success: false,
+      error: error.response.data.message || "An unknown error occurred",
+    };
+  }
+};
+
+export const redirectToLink = async (linkId) => {
+  try {
+    const response = await apiClient.get(`/links/${linkId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error during redirection:", error);
+    return {
+      success: false,
+      error: error.response.data.message || "An unknown error occurred",
+    };
+  }
+};

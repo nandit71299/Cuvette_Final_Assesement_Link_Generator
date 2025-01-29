@@ -1,0 +1,65 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+}
+
+.clickCountsContainer {
+  display: flex;
+  gap: 50px;
+  align-items: center;
+}
+
+.analyticsTableContainer {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  align-items: start;
+}
+
+.dateWiseClicksTable {
+  width: 100%;
+  padding: 20px 20px;
+  border: 1px solid var(--border-gray);
+  border-radius: 6px;
+  overflow: scroll;
+}
+.dateWiseClicksTable > h2 {
+  color: #1b48da;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.deviceWiseClicksTable {
+  width: 100%;
+  padding: 20px 20px;
+  border: 1px solid var(--border-gray);
+  border-radius: 6px;
+}
+
+.deviceWiseClicksTable > h2 {
+  color: #1b48da;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.tableContent {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.progressBar {
+  border-radius: 0px;
+  width: 80%;
+  height: 22px;
+}
+.progressBar::-webkit-progress-bar {
+  background-color: transparent;
+  border-radius: 0px;
+}
+.progressBar::-webkit-progress-value {
+  background-color: #1b48da;
+  border-radius: 0px;
+}

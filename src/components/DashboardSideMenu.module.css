@@ -1,23 +1,4 @@
-.mainContainer {
-  display: flex;
-  width: 100vw;
-  position: relative;
-}
-
-.flexColumnContainer {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: calc(100% - 200px);
-}
-
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  width: 200px;
-}
-
+/* Sidebar Menu styles */
 .sidebarMenu {
   display: flex;
   flex-direction: column;
@@ -47,6 +28,29 @@
   border-radius: 10px;
 }
 
+/* Sidebar container */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 200px;
+}
+
+/* Main layout styles */
+.mainContainer {
+  display: flex;
+  width: 100vw;
+  position: relative;
+}
+
+.flexColumnContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: calc(100% - 200px); /* Allow for sidebar width */
+}
+
+/* Header styles */
 .headerContainer {
   display: flex;
   justify-content: space-between;
@@ -76,6 +80,7 @@
   font-size: 12px;
 }
 
+/* New button styles in header */
 .createNewIcon {
   background-color: #1b48da;
   padding: 15px 20px;
@@ -85,6 +90,7 @@
   color: var(--text-white);
 }
 
+/* Header right content */
 .headerRightContent {
   display: flex;
   gap: 20px;
@@ -98,6 +104,7 @@
   border-radius: 6px;
 }
 
+/* User initials button */
 .userInitialContainer > button {
   background-color: #fde48a;
   border: none;
@@ -108,6 +115,7 @@
   cursor: pointer;
 }
 
+/* Logout options */
 .logoutOptionContainer {
   position: absolute;
   top: 70px;
