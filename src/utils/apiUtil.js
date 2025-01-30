@@ -15,17 +15,14 @@ export const registerApi = async (formData) => {
     return response.data;
   } catch (error) {
     console.error("Error during registration:", error);
-    if (error.response.data.errors) {
-      return {
-        success: false,
-        error: error.response.data.errors || "Error Logging You ",
-      };
-    } else {
-      return {
-        success: false,
-        error: "An unknown error occurred.",
-      };
-    }
+
+    return {
+      success: false,
+      error:
+        error.response.data.error ||
+        error.response.data.errors ||
+        "Error Logging You ",
+    };
   }
 };
 
@@ -35,22 +32,14 @@ export const loginApi = async (formData) => {
     return response.data;
   } catch (error) {
     console.error("Error during registration:", error);
-    if (error.response.data.errors) {
-      return {
-        success: false,
-        error: error.response.data.errors || "Error Logging You ",
-      };
-    } else if (error.response.data.message) {
-      return {
-        success: false,
-        error: error.response.data.message,
-      };
-    } else {
-      return {
-        success: false,
-        error: "An unknown error occurred.",
-      };
-    }
+
+    return {
+      success: false,
+      error:
+        error.response.data.error ||
+        error.response.data.errors ||
+        "Error Logging You ",
+    };
   }
 };
 

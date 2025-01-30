@@ -11,7 +11,7 @@ import CreateEditLinkModal from "../components/CreateEditLinkModal";
 function Links() {
   const loaderData = useLoaderData();
   const [data, setData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]); // state for filtered data
+  const [filteredData, setFilteredData] = useState([]);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedLink, setSelectedLink] = useState(null);
   const [isEditLinkOpen, setIsEditLinkOpen] = useState(false);
@@ -20,11 +20,10 @@ function Links() {
 
   useEffect(() => {
     if (loaderData && loaderData.data) {
-      setData(loaderData.data); // update data when loaderData changes
+      setData(loaderData.data);
     }
   }, [loaderData]);
 
-  // Effect to filter data based on search term
   useEffect(() => {
     if (search) {
       const filtered = data?.filter((link) =>
@@ -32,11 +31,10 @@ function Links() {
       );
       setFilteredData(filtered);
     } else {
-      setFilteredData(data); // If no search term, show all data
+      setFilteredData(data);
     }
   }, [search, data]);
 
-  // If data is not loaded yet, show loader
   if (!data) {
     return <Loader />;
   }

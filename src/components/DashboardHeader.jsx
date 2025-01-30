@@ -16,6 +16,8 @@ function DashboardHeader() {
   const search = searchParams.get("search");
 
   const searchRef = useRef();
+  const [localSearch, setLocalSearch] = useState(search || "");
+  const [debouncedSearch, setDebouncedSearch] = useState(localSearch);
 
   const handleClick = () => {
     setShowLogoutOption(!showLogoutOption);
@@ -43,8 +45,19 @@ function DashboardHeader() {
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
-    setSearchParams({ search: value });
+    setLocalSearch(value);
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (localSearch !== debouncedSearch) {
+        setDebouncedSearch(localSearch);
+        setSearchParams({ search: localSearch });
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [localSearch, debouncedSearch, setSearchParams]);
 
   useEffect(() => {
     if (search || search === "") {
@@ -79,9 +92,9 @@ function DashboardHeader() {
             type="text"
             placeholder="Search by Remarks"
             className={styles.searchInput}
-            value={search || ""}
-            onFocus={handleSearchFocus} // Trigger navigation when focused
-            onChange={handleSearchChange} // Update search param as user types
+            value={localSearch}
+            onFocus={handleSearchFocus}
+            onChange={handleSearchChange}
             ref={searchRef}
           />
         </div>
