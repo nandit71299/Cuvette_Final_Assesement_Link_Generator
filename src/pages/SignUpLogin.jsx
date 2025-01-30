@@ -120,30 +120,35 @@ const SignUpLogin = () => {
                 placeholder="Name"
                 className={styles.input}
                 name="name"
+                required
               />
               <input
                 type="email"
                 placeholder="Email id"
                 className={styles.input}
                 name="email"
+                required
               />
               <input
                 type="text"
                 placeholder="Mobile no."
                 className={styles.input}
                 name="mobile"
+                required
               />
               <input
                 type="password"
                 placeholder="Password"
                 className={styles.input}
                 name="password"
+                required
               />
               <input
                 type="password"
                 placeholder="Confirm Password"
                 className={styles.input}
                 name="confirmPassword"
+                required
               />
               <button
                 type="submit"
@@ -188,6 +193,10 @@ export const action = async ({ request }) => {
       const mobile = formData.get("mobile");
       const password = formData.get("password");
       const confirmPassword = formData.get("confirmPassword");
+
+      if (password !== confirmPassword) {
+        return { success: false, error: "Passwords do not match" };
+      }
 
       const response = await registerApi({
         name,
