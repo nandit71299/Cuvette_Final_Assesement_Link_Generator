@@ -43,7 +43,7 @@ function DashboardHeader() {
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
-    searchRef.current.focus();
+    setSearchParams({ search: value });
   };
 
   useEffect(() => {
@@ -77,7 +77,7 @@ function DashboardHeader() {
         <div>
           <input
             type="text"
-            placeholder="Search"
+            placeholder="Search by Remarks"
             className={styles.searchInput}
             value={search || ""}
             onFocus={handleSearchFocus} // Trigger navigation when focused
