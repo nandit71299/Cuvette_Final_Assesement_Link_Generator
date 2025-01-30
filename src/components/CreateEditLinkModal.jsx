@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Form, useNavigate } from "react-router-dom";
 import styles from "./CreateEditLinkModal.module.css";
 import { createLink, updateLink } from "../utils/apiUtil";
 import { toast } from "react-toastify";
+import moment from "moment";
 
 function CreateEditLinkModal({ onClose, mode = "new", link }) {
   const [isActive, setIsActive] = useState(
-    mode === "edit" ? link?.expirationDate : false
+    mode === "edit" ? link?.linkExpiration : false
   );
   const navigate = useNavigate();
+
+  // Create a reference for the form
+  const formRef = useRef(null);
 
   const handleToggle = () => {
     setIsActive(!isActive);
@@ -27,6 +31,8 @@ function CreateEditLinkModal({ onClose, mode = "new", link }) {
       if (response.success) {
         toast.success("Link updated successfully");
         navigate("/dashboard/links");
+      } else {
+        toast.error(response.error);
       }
     } else if (mode === "new") {
       const response = await createLink(data);
@@ -36,8 +42,32 @@ function CreateEditLinkModal({ onClose, mode = "new", link }) {
       } else {
         toast.error("Failed to create link");
       }
-      // onClose();
     }
+  };
+
+  // Handle form reset
+  const handleClear = () => {
+    // Reset specific form fields manually
+    const formElements = formRef.current.elements;
+
+    // Manually reset input fields and textarea
+    for (let element of formElements) {
+      if (
+        element.type === "text" ||
+        element.type === "url" ||
+        element.type === "textarea"
+      ) {
+        element.value = "";
+      }
+      if (element.type === "date") {
+        element.value = "";
+      }
+    }
+
+    // Reset expiration toggle and state
+    setIsActive(false); // Reset the expiration toggle state
+
+    // Optionally, if you want to reset other fields, handle that as well
   };
 
   return (
@@ -50,7 +80,11 @@ function CreateEditLinkModal({ onClose, mode = "new", link }) {
           </button>
         </div>
         <div className={styles.formContainer}>
-          <Form onSubmit={handleSubmit} className={styles.modalForm}>
+          <Form
+            ref={formRef}
+            onSubmit={handleSubmit}
+            className={styles.modalForm}
+          >
             <div className={styles.formElements}>
               <div className={styles.formElement}>
                 <label htmlFor="originalUrl" className={styles.linkFormLabel}>
@@ -98,16 +132,23 @@ function CreateEditLinkModal({ onClose, mode = "new", link }) {
               {isActive && (
                 <input
                   type="date"
+                  min={moment().format("YYYY-MM-DD")}
                   id="expirationDate"
                   name="expirationDate"
                   className={styles.linkFormInputs}
-                  defaultValue={link?.expirationDate}
+                  defaultValue={
+                    link ? moment(link.linkExpiration).format("YYYY-MM-DD") : ""
+                  }
                 />
               )}
             </div>
             <div className={styles.modalFooter}>
               <div>
-                <button type="reset" className={styles.clearBtn}>
+                <button
+                  type="button"
+                  className={styles.clearBtn}
+                  onClick={handleClear} // Call handleClear on clear button click
+                >
                   Clear
                 </button>
               </div>

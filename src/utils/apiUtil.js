@@ -171,3 +171,19 @@ export const redirectToLink = async (linkId) => {
     };
   }
 };
+
+export const getAnalytics = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await apiClient.get("/analytics", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error during analytics fetching:", error);
+    return {
+      success: false,
+      error: error.response.data.message || "An unknown error occurred",
+    };
+  }
+};

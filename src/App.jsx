@@ -12,6 +12,7 @@ import DashboardLayout from "./layouts/DashboardLayout";
 import Links, { loader as linksPageLoader } from "./pages/Links";
 import Loader from "./components/Loader";
 import Redirector from "./pages/Redirector";
+import Analytics, { loader as analyticsLoader } from "./pages/Analytics";
 
 const router = createBrowserRouter([
   {
@@ -50,7 +51,8 @@ const router = createBrowserRouter([
       },
       {
         path: "analytics",
-        element: <h1>Analytics Page</h1>,
+        element: <Analytics />,
+        loader: analyticsLoader,
       },
     ],
   },

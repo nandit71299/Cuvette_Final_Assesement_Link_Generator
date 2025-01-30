@@ -1,0 +1,47 @@
+.linksContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  justify-content: center;
+}
+
+.linksTableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 6px;
+  box-shadow: 0px 7px 10px -10px gray;
+}
+
+.linksTable {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.tableHeader {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid var(--border-gray);
+  background-color: #f3f7fd;
+  font-weight: bold;
+}
+
+.tableCell {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid var(--border-gray);
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.copyLinkText {
+  cursor: pointer;
+}
+
+.actionButton {
+  padding: 5px 10px;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+}

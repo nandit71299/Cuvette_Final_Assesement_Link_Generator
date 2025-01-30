@@ -78,6 +78,8 @@ function Links() {
                           toast.success("Link copied successfully");
                         }}
                       >
+                        {" "}
+                        &nbsp;
                         <i className="fa-regular fa-clipboard"></i>
                       </span>
                     </div>

@@ -66,7 +66,12 @@ function DashboardHeader() {
         </div>
       )}
 
-      {isCreateModalOpen && <CreateEditLinkModal />}
+      {isCreateModalOpen && (
+        <CreateEditLinkModal
+          mode="new"
+          onClose={() => setIsCreateModalOpen(false)}
+        />
+      )}
     </div>
   );
 }
