@@ -130,7 +130,7 @@ const SignUpLogin = () => {
                 required
               />
               <input
-                type="text"
+                type="number"
                 placeholder="Mobile no."
                 className={styles.input}
                 name="mobile"
