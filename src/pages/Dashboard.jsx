@@ -28,39 +28,73 @@ function Dashboard() {
       <div className={styles.analyticsTableContainer}>
         <div className={styles.dateWiseClicksTable}>
           <h2>Date Wise Clicks</h2>
-          {data?.dateWiseClicks.map((item, index) => (
-            <div key={index} className={styles.tableContent}>
-              <p style={{ fontWeight: "bold", fontSize: "16px" }}>
-                {item.date}
-              </p>
-              <progress
-                value={item.clicks}
-                className={styles.progressBar}
-                max={data?.maxDateWiseClicks}
-              ></progress>
-              <p style={{ fontWeight: "bold", fontSize: "16px" }}>
-                {item.clicks}
-              </p>
+          {data?.dateWiseClicks?.length < 1 ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                height: "50%",
+                color: "gray",
+              }}
+            >
+              <h2 style={{ textAlign: "center", alignSelf: "center" }}>
+                No Enough Data
+              </h2>
             </div>
-          ))}
+          ) : (
+            data?.dateWiseClicks.map((item, index) => (
+              <div key={index} className={styles.tableContent}>
+                <p style={{ fontWeight: "bold", fontSize: "16px" }}>
+                  {item.date}
+                </p>
+                <progress
+                  value={item.clicks}
+                  className={styles.progressBar}
+                  max={data?.maxDateWiseClicks}
+                ></progress>
+                <p style={{ fontWeight: "bold", fontSize: "16px" }}>
+                  {item.clicks}
+                </p>
+              </div>
+            ))
+          )}
         </div>
         <div className={styles.deviceWiseClicksTable}>
           <h2>Device Wise Clicks</h2>
-          {data?.deviceWiseClicks.map((item, index) => (
-            <div key={index} className={styles.tableContent}>
-              <p style={{ fontWeight: "bold", fontSize: "16px" }}>
-                {item.device}
-              </p>
-              <progress
-                value={item.clicks}
-                className={styles.progressBar}
-                max={data?.maxDeviceWiseClicks}
-              ></progress>
-              <p style={{ fontWeight: "bold", fontSize: "16px" }}>
-                {item.clicks}
-              </p>
+          {data?.deviceWiseClicks?.length < 1 ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                height: "50%",
+                color: "gray",
+              }}
+            >
+              <h2 style={{ textAlign: "center", alignSelf: "center" }}>
+                No Enough Data
+              </h2>
             </div>
-          ))}
+          ) : (
+            data?.deviceWiseClicks.map((item, index) => (
+              <div key={index} className={styles.tableContent}>
+                <p style={{ fontWeight: "bold", fontSize: "16px" }}>
+                  {item.device}
+                </p>
+                <progress
+                  value={item.clicks}
+                  className={styles.progressBar}
+                  max={data?.maxDeviceWiseClicks}
+                ></progress>
+                <p style={{ fontWeight: "bold", fontSize: "16px" }}>
+                  {item.clicks}
+                </p>
+              </div>
+            ))
+          )}
           <div></div>
         </div>
       </div>

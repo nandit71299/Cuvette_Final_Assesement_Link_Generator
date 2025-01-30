@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Links.module.css";
 import { deleteLink, getAllLinks } from "../utils/apiUtil";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import moment from "moment";
 import { toast } from "react-toastify";
@@ -11,27 +11,43 @@ import CreateEditLinkModal from "../components/CreateEditLinkModal";
 function Links() {
   const loaderData = useLoaderData();
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]); // state for filtered data
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedLink, setSelectedLink] = useState(null);
   const [isEditLinkOpen, setIsEditLinkOpen] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const search = searchParams.get("search");
 
+  useEffect(() => {
+    if (loaderData && loaderData.data) {
+      setData(loaderData.data); // update data when loaderData changes
+    }
+  }, [loaderData]);
+
+  // Effect to filter data based on search term
+  useEffect(() => {
+    if (search) {
+      const filtered = data?.filter((link) =>
+        link.remarks.toLowerCase().includes(search.toLowerCase())
+      );
+      setFilteredData(filtered);
+    } else {
+      setFilteredData(data); // If no search term, show all data
+    }
+  }, [search, data]);
+
+  // If data is not loaded yet, show loader
   if (!data) {
     return <Loader />;
   }
-  useEffect(() => {
-    if (loaderData && loaderData.data) {
-      setData(loaderData);
-    }
-  }, [loaderData]);
 
   const handleDeleteLink = async () => {
     const response = await deleteLink(selectedLink._id);
     if (response.success) {
       setIsDeleteModalOpen(false);
-      const filteredData = data.data.filter(
-        (link) => link._id !== selectedLink._id
-      );
-      setData(filteredData);
+      const newData = data.filter((link) => link._id !== selectedLink._id);
+      setData(newData);
+      setFilteredData(newData); // Update filtered data after deletion
       toast.success("Link deleted successfully");
     } else {
       console.error("Error during link deletion:", response.error);
@@ -55,66 +71,85 @@ function Links() {
             </tr>
           </thead>
           <tbody>
-            {data?.data?.map((link) => {
-              return (
-                <tr key={link._id || link.shortLink || link.originalLink}>
-                  <td className={styles.tableCell}>
-                    {moment(link.createdAt).format("MMM Do YYYY HH:mm")}
-                  </td>
-                  <td className={styles.tableCell}>{link.originalUrl}</td>
-                  <td className={styles.tableCell}>
-                    <div>
-                      <a
-                        href={`${window.location.origin}
+            {filteredData?.length < 1 ? (
+              <tr
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "80dvw",
+                  height: "50%",
+                  color: "gray",
+                }}
+              >
+                <td>
+                  <h2 style={{ textAlign: "center", alignSelf: "center" }}>
+                    No Enough Data
+                  </h2>
+                </td>
+              </tr>
+            ) : (
+              filteredData?.map((link) => {
+                return (
+                  <tr key={link._id || link.shortLink || link.originalLink}>
+                    <td className={styles.tableCell}>
+                      {moment(link.createdAt).format("MMM Do YYYY HH:mm")}
+                    </td>
+                    <td className={styles.tableCell}>{link.originalUrl}</td>
+                    <td className={styles.tableCell}>
+                      <div>
+                        <a
+                          href={`${window.location.origin}
                     ${link.linkHash}`}
-                      ></a>
-                      {window.location.origin}/{link.linkHash}
-                      <span
-                        className={styles.copyLinkText}
+                        ></a>
+                        {window.location.origin}/{link.linkHash}
+                        <span
+                          className={styles.copyLinkText}
+                          onClick={() => {
+                            navigator.clipboard.writeText(
+                              `${window.location.origin}/${link.linkHash}`
+                            );
+                            toast.success("Link copied successfully");
+                          }}
+                        >
+                          {" "}
+                          &nbsp;
+                          <i className="fa-regular fa-clipboard"></i>
+                        </span>
+                      </div>
+                    </td>
+                    <td className={styles.tableCell}>{link.remarks}</td>
+                    <td className={styles.tableCell}>{link.clickCount}</td>
+                    <td
+                      className={styles.tableCell}
+                      style={{ color: link.isActive ? "#1EB036" : "#B0901E" }}
+                    >
+                      {link.isActive ? "Active" : "Inactive"}
+                    </td>
+                    <td className={styles.tableCell}>
+                      <button
+                        className={styles.actionButton}
                         onClick={() => {
-                          navigator.clipboard.writeText(
-                            `${window.location.origin}/${link.linkHash}`
-                          );
-                          toast.success("Link copied successfully");
+                          setSelectedLink(link);
+                          setIsEditLinkOpen(true);
                         }}
                       >
-                        {" "}
-                        &nbsp;
-                        <i className="fa-regular fa-clipboard"></i>
-                      </span>
-                    </div>
-                  </td>
-                  <td className={styles.tableCell}>{link.remarks}</td>
-                  <td className={styles.tableCell}>{link.clickCount}</td>
-                  <td
-                    className={styles.tableCell}
-                    style={{ color: link.isActive ? "#1EB036" : "#B0901E" }}
-                  >
-                    {link.isActive ? "Active" : "Inactive"}
-                  </td>
-                  <td className={styles.tableCell}>
-                    <button
-                      className={styles.actionButton}
-                      onClick={() => {
-                        setSelectedLink(link);
-                        setIsEditLinkOpen(true);
-                      }}
-                    >
-                      <i className="fa-solid fa-pencil"></i>
-                    </button>
-                    <button
-                      onClick={() => {
-                        setSelectedLink(link);
-                        setIsDeleteModalOpen(true);
-                      }}
-                      className={styles.actionButton}
-                    >
-                      <i className="fa-solid fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
+                        <i className="fa-solid fa-pencil"></i>
+                      </button>
+                      <button
+                        onClick={() => {
+                          setSelectedLink(link);
+                          setIsDeleteModalOpen(true);
+                        }}
+                        className={styles.actionButton}
+                      >
+                        <i className="fa-solid fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })
+            )}
           </tbody>
         </table>
       </div>

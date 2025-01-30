@@ -13,6 +13,7 @@ import Links, { loader as linksPageLoader } from "./pages/Links";
 import Loader from "./components/Loader";
 import Redirector from "./pages/Redirector";
 import Analytics, { loader as analyticsLoader } from "./pages/Analytics";
+import Settings, { action as settingsAction } from "./pages/Settings";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,11 @@ const router = createBrowserRouter([
         path: "analytics",
         element: <Analytics />,
         loader: analyticsLoader,
+      },
+      {
+        path: "settings",
+        element: <Settings />,
+        action: settingsAction,
       },
     ],
   },

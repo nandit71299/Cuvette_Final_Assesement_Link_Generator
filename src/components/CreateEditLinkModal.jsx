@@ -9,9 +9,9 @@ function CreateEditLinkModal({ onClose, mode = "new", link }) {
   const [isActive, setIsActive] = useState(
     mode === "edit" ? link?.linkExpiration : false
   );
+  const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
 
-  // Create a reference for the form
   const formRef = useRef(null);
 
   const handleToggle = () => {
@@ -27,20 +27,38 @@ function CreateEditLinkModal({ onClose, mode = "new", link }) {
       expirationDate: formData.get("expirationDate") || null,
     };
     if (mode === "edit") {
+      setSubmitting(true);
       const response = await updateLink(data, link._id);
       if (response.success) {
+        setSubmitting(false);
         toast.success("Link updated successfully");
         navigate("/dashboard/links");
       } else {
-        toast.error(response.error);
+        setSubmitting(false);
+        if (typeof response.error === "string") {
+          toast.error(response.error);
+        } else if (typeof response.error === "object") {
+          response.error.map((err) => {
+            return toast.error(`${err.msg}`);
+          });
+        }
       }
     } else if (mode === "new") {
+      setSubmitting(true);
       const response = await createLink(data);
       if (response.success) {
+        setSubmitting(false);
         toast.success("Link created successfully");
         navigate("/dashboard/links");
       } else {
-        toast.error("Failed to create link");
+        setSubmitting(false);
+        if (typeof response.error === "string") {
+          toast.error(response.error);
+        } else if (typeof response.error === "object") {
+          response.error.map((err) => {
+            return toast.error(`${err.msg}`);
+          });
+        }
       }
     }
   };
@@ -153,8 +171,16 @@ function CreateEditLinkModal({ onClose, mode = "new", link }) {
                 </button>
               </div>
               <div>
-                <button type="submit" className={styles.submitBtn}>
-                  {mode === "edit" ? "Save" : "Create New"}
+                <button
+                  type="submit"
+                  className={styles.submitBtn}
+                  disabled={submitting}
+                >
+                  {submitting
+                    ? "Submitting"
+                    : mode === "edit"
+                    ? "Save"
+                    : "Create New"}
                 </button>
               </div>
             </div>

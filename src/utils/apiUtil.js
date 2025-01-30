@@ -133,7 +133,10 @@ export const createLink = async (formData) => {
     console.error("Error during links data fetching:", error);
     return {
       success: false,
-      error: error.response.data.message || "An unknown error occurred",
+      error:
+        error.response.data.error ||
+        error.response.data.errors ||
+        "An unknown error occurred",
     };
   }
 };
@@ -149,7 +152,10 @@ export const updateLink = async (formData, id) => {
     console.error("Error during links data fetching:", error);
     return {
       success: false,
-      error: error.response.data.message || "An unknown error occurred",
+      error:
+        error.response.data.error ||
+        error.response.data.errors ||
+        "An unknown error occurred",
     };
   }
 };
@@ -184,6 +190,41 @@ export const getAnalytics = async () => {
     return {
       success: false,
       error: error.response.data.message || "An unknown error occurred",
+    };
+  }
+};
+
+export const deleteUser = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await apiClient.delete("/auth", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error during user deletion:", error);
+    return {
+      success: false,
+      error: error.response.data.message || "An unknown error occurred",
+    };
+  }
+};
+
+export const updateUser = async (user) => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await apiClient.put("/auth", user, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error during user update:", error);
+    return {
+      success: false,
+      error:
+        error.response.data.error ||
+        error.response.data.errors ||
+        "An unknown error occurred",
     };
   }
 };

@@ -7,23 +7,36 @@ import {
   NavLink,
   useActionData,
   useNavigate,
+  useNavigation,
   useSearchParams,
 } from "react-router-dom";
-import { loginApi, registerApi } from "../utils/apiUtil";
+import { loginApi, registerApi, verifyUserApi } from "../utils/apiUtil";
 import { toast } from "react-toastify";
 
 const SignUpLogin = () => {
   const [searchParams, updateSearchParams] = useSearchParams();
   const mode = searchParams.get("mode");
   const navigate = useNavigate();
-
+  const navigation = useNavigation();
+  const state = navigation.state;
   const data = useActionData();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      const verify = async () => {
+        const response = await verifyUserApi();
+        if (response.success) {
+          navigate("/dashboard");
+        }
+      };
+      verify();
+    }
+  }, []);
   useEffect(() => {
     if (data && data.success) {
       if (mode === "signup") {
         navigate("/?mode=login");
       } else {
-        console.log("TOKEN FROM API", data.token);
         localStorage.setItem("token", data.token);
         navigate("/dashboard");
       }
@@ -90,8 +103,14 @@ const SignUpLogin = () => {
                 className={styles.input}
                 name="password"
               />
-              <button type="submit" className={styles.loginButton}>
-                Login
+              <button
+                type="submit"
+                className={styles.loginButton}
+                disabled={state === "loading" || state === "submitting"}
+              >
+                {state === "loading" || state === "submitting"
+                  ? "Submitting"
+                  : "Login"}
               </button>
             </Form>
           ) : (
@@ -126,8 +145,14 @@ const SignUpLogin = () => {
                 className={styles.input}
                 name="confirmPassword"
               />
-              <button type="submit" className={styles.registerButton}>
-                Register
+              <button
+                type="submit"
+                className={styles.registerButton}
+                disabled={state === "loading" || state === "submitting"}
+              >
+                {state === "loading" || state === "submitting"
+                  ? "Submitting"
+                  : "Register"}
               </button>
             </Form>
           )}

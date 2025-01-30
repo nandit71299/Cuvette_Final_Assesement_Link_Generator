@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./DashboardHeader.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/user";
 import CreateEditLinkModal from "./CreateEditLinkModal";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function DashboardHeader() {
   const [showLogoutOption, setShowLogoutOption] = useState(false);
@@ -10,6 +11,11 @@ function DashboardHeader() {
   const user = useSelector((state) => state.user.user);
   const currentTime = new Date().getHours();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const search = searchParams.get("search");
+
+  const searchRef = useRef();
 
   const handleClick = () => {
     setShowLogoutOption(!showLogoutOption);
@@ -25,6 +31,26 @@ function DashboardHeader() {
     setShowLogoutOption(false);
     window.location.href = "/";
   };
+
+  const handleSearchFocus = () => {
+    const path = window.location.pathname;
+    if (path !== "/dashboard/links") {
+      navigate(`/dashboard/links?search=`);
+      searchRef.current.focus();
+    }
+    searchRef.current.focus();
+  };
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    searchRef.current.focus();
+  };
+
+  useEffect(() => {
+    if (search || search === "") {
+      searchRef.current.focus();
+    }
+  }, [search]);
 
   return (
     <div className={styles.headerContainer}>
@@ -53,6 +79,10 @@ function DashboardHeader() {
             type="text"
             placeholder="Search"
             className={styles.searchInput}
+            value={search || ""}
+            onFocus={handleSearchFocus} // Trigger navigation when focused
+            onChange={handleSearchChange} // Update search param as user types
+            ref={searchRef}
           />
         </div>
         <div className={styles.userInitialContainer}>

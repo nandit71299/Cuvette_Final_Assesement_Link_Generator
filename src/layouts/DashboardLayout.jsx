@@ -25,7 +25,7 @@ function DashboardLayout() {
 
       <div className={styles.flexColumnContainer}>
         <DashboardHeader />
-        <div>
+        <div style={{ height: "100%" }}>
           <Outlet />
         </div>
       </div>

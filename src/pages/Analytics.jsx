@@ -29,25 +29,46 @@ const Analytics = () => {
             </tr>
           </thead>
           <tbody>
-            {analytics.map((link) => (
-              <tr key={link._id}>
-                <td className={styles.tableCell}>
-                  {moment(link.timestamp).format("MMM Do YYYY HH:mm")}
+            {analytics?.length < 1 ? (
+              <tr
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "80dvw",
+                  height: "50%",
+                  color: "gray",
+                }}
+              >
+                <td>
+                  <h2 style={{ textAlign: "center", alignSelf: "center" }}>
+                    No Enough Data
+                  </h2>
                 </td>
-                <td className={styles.tableCell}>{link.linkId.originalUrl}</td>
-                <td className={styles.tableCell}>
-                  <div>
-                    <a
-                      href={`${window.location.origin}/${link.linkId.linkHash}`}
-                    >
-                      {window.location.origin}/{link.linkId.linkHash}
-                    </a>
-                  </div>
-                </td>
-                <td className={styles.tableCell}>{link.ipAddress}</td>
-                <td className={styles.tableCell}>{link.deviceInfo}</td>
               </tr>
-            ))}
+            ) : (
+              analytics.map((link) => (
+                <tr key={link._id}>
+                  <td className={styles.tableCell}>
+                    {moment(link.timestamp).format("MMM Do YYYY HH:mm")}
+                  </td>
+                  <td className={styles.tableCell}>
+                    {link.linkId.originalUrl}
+                  </td>
+                  <td className={styles.tableCell}>
+                    <div>
+                      <a
+                        href={`${window.location.origin}/${link.linkId.linkHash}`}
+                      >
+                        {window.location.origin}/{link.linkId.linkHash}
+                      </a>
+                    </div>
+                  </td>
+                  <td className={styles.tableCell}>{link.ipAddress}</td>
+                  <td className={styles.tableCell}>{link.deviceInfo}</td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

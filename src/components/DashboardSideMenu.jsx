@@ -43,10 +43,10 @@ function DashboardSideMenu() {
         <span>Analytics</span>
       </NavLink>
 
-      {/* <hr width="100%" /> */}
+      <hr width="100%" />
 
       {/* Settings section */}
-      {/* <NavLink
+      <NavLink
         to="/dashboard/settings"
         className={({ isActive }) =>
           isActive ? styles.activeMenuItem : styles.menuItem
@@ -54,8 +54,8 @@ function DashboardSideMenu() {
       >
         <img src={setting} alt="Settings" />
         <span>Settings</span>
-      </NavLink> */}
-      {/* <hr width="100%" /> */}
+      </NavLink>
+      <hr width="100%" />
     </div>
   );
 }

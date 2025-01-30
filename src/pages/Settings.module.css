@@ -1,0 +1,52 @@
+.mainContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+.userInfoForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 50%;
+  justify-content: center;
+}
+.formInputs {
+  border: 1px solid var(--border-gray);
+  padding: 10px;
+  width: 50%;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+.formItems {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  width: 100%;
+}
+.formItemsTitle {
+  width: 50px;
+}
+
+.saveBtn,
+.delBtn {
+  padding: 10px 0px;
+  box-sizing: border-box;
+  width: 50%;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  color: white;
+}
+
+.saveBtn {
+  background-color: var(--button-bg-blue);
+  width: 60%;
+  cursor: pointer;
+}
+.delBtn {
+  background-color: red;
+  width: 60%;
+  cursor: pointer;
+}
