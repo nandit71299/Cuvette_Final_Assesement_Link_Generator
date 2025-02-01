@@ -82,7 +82,7 @@
   border: none;
   border-radius: 6px;
   font-size: 14px;
-  color: var(--text-white);
+  cursor: pointer;
 }
 
 .headerRightContent {
